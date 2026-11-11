@@ -1,0 +1,25 @@
+{
+  "name": "@itera/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Typed REST client generated from contracts/*.openapi.json (server-side).",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@itera/biome": "workspace:*",
+    "@itera/tsconfig": "workspace:*",
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "gen": "node scripts/generate.mjs",
+    "gen:check": "node scripts/generate.mjs --check",
+    "check": "tsc --noEmit && biome check src scripts"
+  }
+}

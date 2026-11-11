@@ -1,0 +1,70 @@
+name: Release
+
+# Pushing a tag such as v1.0.0 builds the desktop installers and attaches them to a DRAFT release;
+# a person reviews the draft and publishes it. The installers are not code signed.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    name: Draft release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: The tag must match the shell version
+        run: test "v$(jq -r .version apps/desktop-shell/tauri.conf.json)" = "$GITHUB_REF_NAME"
+      - name: Create the draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --draft --title "$GITHUB_REF_NAME" --generate-notes
+
+  desktop:
+    name: Installer (${{ matrix.label }})
+    needs: draft
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: Windows x64, os: windows-latest, target: '', bundle: nsis, glob: '*.exe' }
+          - { label: macOS arm64, os: macos-latest, target: aarch64-apple-darwin, bundle: dmg, glob: '*.dmg' }
+          - { label: macOS x64, os: macos-latest, target: x86_64-apple-darwin, bundle: dmg, glob: '*.dmg' }
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/desktop-shell
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: apps/desktop-shell
+      - name: Add the Rust target
+        if: matrix.target != ''
+        run: rustup target add "${{ matrix.target }}"
+      - name: Install the Tauri CLI
+        run: cargo install tauri-cli --version 2.12.4 --locked
+      - name: Build the installer
+        # No ITERA_DEFAULT_WEB_URL here: a public build must not carry a private address. The app opens
+        # http://localhost:3000 unless ITERA_WEB_URL is set.
+        run: |
+          if [ -n "${{ matrix.target }}" ]; then
+            cargo tauri build --target "${{ matrix.target }}" --bundles ${{ matrix.bundle }}
+          else
+            cargo tauri build --bundles ${{ matrix.bundle }}
+          fi
+      - name: Attach to the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          shopt -s nullglob
+          files=(target/release/bundle/${{ matrix.bundle }}/${{ matrix.glob }} target/*/release/bundle/${{ matrix.bundle }}/${{ matrix.glob }})
+          test ${#files[@]} -gt 0 || { echo "no installer found"; exit 1; }
+          gh release upload "$GITHUB_REF_NAME" "${files[@]}" --repo "$GITHUB_REPOSITORY" --clobber

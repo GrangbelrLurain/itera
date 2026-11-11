@@ -1,0 +1,33 @@
+[package]
+name = "desktop-shell"
+version = "1.0.0"
+edition = "2021"
+description = "Itera Enterprise Workstation: thin desktop shell (Tauri v2) around the Itera web application"
+
+[lib]
+name = "desktop_shell"
+path = "src/lib.rs"
+
+[[bin]]
+name = "desktop-shell"
+path = "src/main.rs"
+
+[dependencies]
+tauri = { version = "2.2", features = [] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+base64 = "0.22"
+tauri-plugin-opener = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-window-state = "2"
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2"
+
+[features]
+# Enabled by `cargo tauri build` / `cargo build --release --features custom-protocol`:
+# embeds ui/ (the splash loader) instead of using devUrl.
+custom-protocol = ["tauri/custom-protocol"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }

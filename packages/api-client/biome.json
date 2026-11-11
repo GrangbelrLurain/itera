@@ -1,0 +1,14 @@
+{
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "root": true,
+  "extends": [
+    "@itera/biome/biome.json"
+  ],
+  "files": {
+    "includes": [
+      "src/**",
+      "scripts/**",
+      "!src/generated"
+    ]
+  }
+}

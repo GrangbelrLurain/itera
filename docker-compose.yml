@@ -1,0 +1,87 @@
+# AeroCore local test environment (Docker Desktop)
+#   docker compose up -d --build     # DB + backend + admin
+#   docker compose up -d db          # DB only (run backend/admin locally)
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-ChangeMe_Dev1!}
+    ports:
+      - "1433:1433"
+    volumes:
+      - aerocore-db:/var/opt/mssql
+      - ./infra/db:/docker-entrypoint-initdb:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-ChangeMe_Dev1!}
+    volumes:
+      - ./infra/db:/docker-entrypoint-initdb:ro
+    entrypoint: ["/bin/bash", "-c", "for f in /docker-entrypoint-initdb/*.sql; do /opt/mssql-tools18/bin/sqlcmd -C -f 65001 -S db -U sa -P \"$$MSSQL_SA_PASSWORD\" -b -i \"$$f\" || exit 1; done"]
+    restart: "no"
+
+  backend:
+    build: ./services/backend-api
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    environment:
+      DB_URL: jdbc:sqlserver://db:1433;databaseName=AeroCore;encrypt=true;trustServerCertificate=true
+      DB_USER: sa
+      DB_PASSWORD: ${MSSQL_SA_PASSWORD:-ChangeMe_Dev1!}
+      # Admin login for local development only. Override in .env; there is no default in the backend itself.
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me-admin}
+      ADMIN_TOKEN_SECRET: ${ADMIN_TOKEN_SECRET:-local-dev-token-secret-change-me}
+    ports:
+      - "8080:8080"
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    environment:
+      # Server Components and Server Actions call the backend over the compose network; the browser never does
+      API_BASE_URL: http://backend:8080
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+
+  # End-to-end stack (profile "e2e"): backend on in-memory sample data, no database, own ports.
+  #   docker compose --profile e2e up -d --build backend-e2e admin-e2e
+  #   E2E_BASE_URL=http://localhost:13000 E2E_API_URL=http://localhost:18080 pnpm --filter @itera/e2e test
+  backend-e2e:
+    profiles: ["e2e"]
+    build: ./services/backend-api
+    environment:
+      SPRING_PROFILES_ACTIVE: memory
+    ports:
+      - "18080:8080"
+
+  admin-e2e:
+    profiles: ["e2e"]
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    environment:
+      API_BASE_URL: http://backend-e2e:8080
+    depends_on:
+      - backend-e2e
+    ports:
+      - "13000:3000"
+
+volumes:
+  aerocore-db:

@@ -1,0 +1,42 @@
+# Rust
+target/
+**/*.rs.bk
+
+# Node
+node_modules/
+dist/
+.pnpm-debug.log*
+
+# Java
+*.class
+bin/
+.gradle/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Docker
+.env
+
+# Rust shell: installer build output, generated schemas
+target-dist/
+apps/desktop-shell/gen/
+
+# Java builds
+build/
+!gradle/wrapper/
+
+# Next.js / TypeScript
+.next/
+*.tsbuildinfo
+
+# Playwright
+e2e/test-results/
+e2e/playwright-report/
+
+# Local scratch (screenshots taken while testing the shell)
+.shot*
+*.log

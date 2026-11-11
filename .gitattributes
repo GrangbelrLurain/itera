@@ -1,0 +1,9 @@
+# Normalize line endings so the same files check out the same on Windows, macOS and Linux CI.
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.png binary
+*.ico binary
+*.icns binary
+*.jar binary

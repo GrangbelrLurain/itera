@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Itera Enterprise Workstation</title>
+  <!-- Loading screen only: it probes the web address, then hands the window over to the web application. -->
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #5bbac1;
+      --primary-strong: #2f8f98;
+      --primary-soft: #dbf2f3;
+      --fg: #222222;
+      --muted: #666666;
+      --line: #dedede;
+      --warn: #b85a33;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f3f3;
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      user-select: none;
+      overflow: hidden;
+    }
+    /* grab area at the top (macOS keeps its traffic lights over the page) */
+    .drag { position: fixed; top: 0; left: 0; right: 0; height: 36px; }
+    .card {
+      width: 440px;
+      max-width: calc(100vw - 32px);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .card header {
+      background: var(--primary);
+      color: #fff;
+      padding: 18px 24px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .card .body { padding: 24px; }
+    .bar { height: 4px; background: var(--primary-soft); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
+    .bar i {
+      display: block; height: 100%; width: 40%; background: var(--primary-strong); border-radius: 999px;
+      animation: slide 1.6s ease-in-out infinite;
+    }
+    @keyframes slide { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+    .status { font-size: 14px; margin-bottom: 4px; }
+    .target { font-size: 12px; color: var(--muted); word-break: break-all; }
+    .warn { margin-top: 12px; font-size: 12px; color: var(--warn); }
+    .hint { margin-top: 14px; font-size: 12px; color: var(--muted); line-height: 1.6; display: none; }
+    .hint code { background: #f3f3f3; padding: 1px 5px; border-radius: 4px; }
+    button {
+      margin-top: 14px; display: none;
+      background: #fff; color: var(--primary-strong); border: 1px solid var(--primary);
+      border-radius: 6px; padding: 8px 16px; font-size: 14px; cursor: pointer;
+    }
+    button:hover { background: var(--primary-soft); }
+    body.failing .bar i { animation-play-state: paused; opacity: 0.4; }
+    body.failing .hint, body.failing button { display: block; }
+  </style>
+</head>
+<body>
+  <div class="drag" data-tauri-drag-region></div>
+  <div class="card">
+    <header>Itera Enterprise Workstation</header>
+    <div class="body">
+      <div class="bar"><i></i></div>
+      <div id="status" class="status">서버에 연결하는 중…</div>
+      <div id="target" class="target"></div>
+      <div id="warning" class="warn" hidden></div>
+      <div class="hint">
+        서버에 연결할 수 없습니다. 서버가 켜져 있는지, 네트워크가 연결되어 있는지 확인하세요.
+        접속 주소는 환경 변수 <code>ITERA_WEB_URL</code>로 바꿀 수 있습니다.
+      </div>
+      <button id="retry" type="button">지금 다시 시도</button>
+    </div>
+  </div>
+
+  <script>
+    const FALLBACK_URL = "http://localhost:3000";
+    const RETRY_MS = 2000;
+    const PROBE_TIMEOUT_MS = 4000;
+
+    let target = { url: FALLBACK_URL, warning: null };
+    let attempts = 0;
+    let timer = null;
+
+    const $ = (id) => document.getElementById(id);
+
+    async function loadTarget() {
+      const invoke = window.__TAURI__ && window.__TAURI__.core && window.__TAURI__.core.invoke;
+      if (!invoke) return; // opened in a plain browser (design work): keep the fallback address
+      try {
+        target = await invoke("get_target_web_url");
+      } catch (e) {
+        console.warn("get_target_web_url failed", e);
+      }
+    }
+
+    // no-cors: the answer is opaque, but a response at all means the server is reachable
+    async function reachable(url) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), PROBE_TIMEOUT_MS);
+      try {
+        await fetch(url, { mode: "no-cors", cache: "no-store", signal: controller.signal });
+        return true;
+      } catch (_) {
+        return false;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    async function connect() {
+      clearTimeout(timer);
+      attempts += 1;
+      $("status").textContent = attempts > 1 ? `다시 연결하는 중… (${attempts}번째)` : "서버에 연결하는 중…";
+      if (await reachable(target.url)) {
+        $("status").textContent = "연결되었습니다.";
+        window.location.replace(target.url);
+        return;
+      }
+      if (attempts >= 2) document.body.classList.add("failing");
+      timer = setTimeout(connect, RETRY_MS);
+    }
+
+    $("retry").addEventListener("click", () => {
+      document.body.classList.remove("failing");
+      attempts = 0;
+      connect();
+    });
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      await loadTarget();
+      $("target").textContent = target.url;
+      if (target.warning) {
+        $("warning").textContent = target.warning;
+        $("warning").hidden = false;
+      }
+      connect();
+    });
+  </script>
+</body>
+</html>

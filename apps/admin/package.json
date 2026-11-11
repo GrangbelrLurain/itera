@@ -1,0 +1,35 @@
+{
+  "name": "@itera/admin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "check": "tsc --noEmit && biome check src",
+    "lint": "biome check src",
+    "format": "biome check --write src"
+  },
+  "dependencies": {
+    "@itera/api-client": "workspace:*",
+    "@itera/domain": "workspace:*",
+    "@itera/theme": "workspace:*",
+    "@itera/ui": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.5",
+    "@tauri-apps/api": "^2.12.4",
+    "next": "^16.4.5",
+    "postcss": "^8.5.32",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@itera/biome": "workspace:*",
+    "@itera/tsconfig": "workspace:*",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "typescript": "^5.9.3"
+  }
+}

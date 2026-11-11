@@ -1,0 +1,78 @@
+/*
+ * The light theme: gives the raw tokens a meaning and exposes it to Tailwind v4.
+ * A dark theme later only has to redefine the semantic variables under [data-theme='dark'].
+ */
+@import '@itera/token/tokens.css';
+
+:root {
+  --primary: var(--token-teal-400);
+  --primary-strong: var(--token-teal-600); /* teal for text and links on white (contrast) */
+  --primary-soft: var(--token-teal-100); /* section headers, filter bars */
+  --primary-softer: var(--token-teal-200); /* subtle borders, disabled primary */
+  --on-primary: var(--token-white);
+
+  --surface: var(--token-white);
+  --surface-subtle: var(--token-gray-50);
+  --surface-strip: var(--token-gray-100);
+  --line: var(--token-gray-300);
+  --fg: var(--token-gray-900);
+  --fg-muted: var(--token-gray-600);
+  --fg-dim: var(--token-gray-400);
+
+  --success: var(--token-green-500);
+  --success-fg: var(--token-green-700);
+  --success-soft: var(--token-green-50);
+  --warning: var(--token-orange-500);
+  --warning-fg: var(--token-orange-700);
+  --warning-soft: var(--token-orange-50);
+  --danger: var(--token-red-500);
+  --danger-soft: var(--token-red-50);
+  --info: var(--token-blue-500);
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-softer: var(--primary-softer);
+  --color-on-primary: var(--on-primary);
+
+  --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-strip: var(--surface-strip);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-dim: var(--fg-dim);
+
+  --color-success: var(--success);
+  --color-success-fg: var(--success-fg);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-fg: var(--warning-fg);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+
+  --radius-sm: var(--token-radius-sm);
+  --radius-md: var(--token-radius-md);
+  --radius-lg: var(--token-radius-lg);
+  --font-sans: var(--token-font-sans);
+}
+
+@layer base {
+  html {
+    background: var(--surface);
+    color: var(--fg);
+    font-family: var(--font-sans);
+  }
+  th {
+    text-align: left; /* the browser default is centered; utilities such as text-right still win */
+  }
+  body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

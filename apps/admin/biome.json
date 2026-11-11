@@ -1,0 +1,17 @@
+{
+  "$schema": "https://biomejs.dev/schemas/latest/schema.json",
+  "root": true,
+  "extends": [
+    "@itera/biome/biome.json"
+  ],
+  "files": {
+    "includes": [
+      "src/**",
+      "*.json",
+      "*.mjs",
+      "!src/types/openapi.d.ts",
+      "!.next",
+      "!node_modules"
+    ]
+  }
+}

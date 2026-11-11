@@ -1,0 +1,11 @@
+{
+  "name": "@itera/token",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Design tokens: raw values (colors, radii, fonts) as CSS custom properties and a typed list, single source for every app.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  }
+}

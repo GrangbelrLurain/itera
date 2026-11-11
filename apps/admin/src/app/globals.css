@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+@import '@itera/theme/theme.css';
+
+/* Class names used in the shared UI package are scanned too. */
+@source '../../../../packages/ui/src';
+
+/* Inside the desktop shell the page draws a title bar (features/shell/ShellTitleBar); it sets this variable. */
+body {
+  padding-top: var(--shell-titlebar-h, 0px);
+}

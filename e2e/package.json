@@ -1,0 +1,22 @@
+{
+  "name": "@itera/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "description": "End-to-end tests (Playwright) of the admin web on top of the backend's memory profile.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "check": "tsc --noEmit && biome check .",
+    "install:browsers": "playwright install chromium",
+    "prepare:stack": "pnpm --filter @itera/admin build && cd ../services/backend-api && ./gradlew bootJar -q"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@itera/biome": "workspace:*",
+    "@itera/tsconfig": "workspace:*",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^22.20.5",
+    "typescript": "^5.9.3"
+  }
+}

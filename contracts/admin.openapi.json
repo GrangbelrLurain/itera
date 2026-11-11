@@ -1,0 +1,2558 @@
+{
+  "components" : {
+    "schemas" : {
+      "ActiveRequest" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "active" ],
+        "type" : "object"
+      },
+      "AdminBookingDetail" : {
+        "properties" : {
+          "booking" : {
+            "$ref" : "#/components/schemas/PackageBooking"
+          },
+          "finance" : {
+            "items" : {
+              "$ref" : "#/components/schemas/TravelerFinance"
+            },
+            "type" : "array"
+          },
+          "profit" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "totalCommission" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "totalCost" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          }
+        },
+        "required" : [ "booking", "finance", "profit", "totalCommission", "totalCost" ],
+        "type" : "object"
+      },
+      "AdminBookingPage" : {
+        "properties" : {
+          "items" : {
+            "items" : {
+              "$ref" : "#/components/schemas/BookingSummary"
+            },
+            "type" : "array"
+          },
+          "page" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "size" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "total" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "items", "page", "size", "total" ],
+        "type" : "object"
+      },
+      "BookingSummary" : {
+        "properties" : {
+          "bookingCode" : {
+            "type" : "string"
+          },
+          "channelCode" : {
+            "type" : "string"
+          },
+          "contactName" : {
+            "type" : "string"
+          },
+          "contactPhone" : {
+            "type" : "string"
+          },
+          "createdAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "departureDate" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "packageName" : {
+            "type" : "string"
+          },
+          "paymentDueAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "productCode" : {
+            "type" : "string"
+          },
+          "seatCount" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "status" : {
+            "enum" : [ "PENDING_PAYMENT", "CONFIRMED", "CANCELLED", "EXPIRED" ],
+            "type" : "string"
+          },
+          "totalAmount" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "bookingCode", "channelCode", "contactName", "contactPhone", "createdAt", "departureDate", "packageName", "paymentDueAt", "productCode", "seatCount", "status", "totalAmount" ],
+        "type" : "object"
+      },
+      "CancelRequest" : {
+        "properties" : {
+          "reason" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "CapacityRequest" : {
+        "properties" : {
+          "capacity" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "capacity" ],
+        "type" : "object"
+      },
+      "CommissionInput" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "channelCode" : {
+            "type" : "string"
+          },
+          "commissionBp" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "commissionFixed" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "productCode" : {
+            "type" : [ "string", "null" ]
+          }
+        },
+        "required" : [ "active", "channelCode", "commissionBp", "commissionFixed", "productCode" ],
+        "type" : "object"
+      },
+      "CommissionRowsRequest" : {
+        "properties" : {
+          "rows" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CommissionInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "rows" ],
+        "type" : "object"
+      },
+      "ConditionInput" : {
+        "properties" : {
+          "admissionFeeIncluded" : {
+            "type" : "boolean"
+          },
+          "airlineSeatClass" : {
+            "type" : [ "string", "null" ]
+          },
+          "cancellationPolicy" : {
+            "type" : [ "string", "null" ]
+          },
+          "insuranceIncluded" : {
+            "type" : "boolean"
+          },
+          "localExpensesAdult" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "localExpensesChild" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "localExpensesCurrency" : {
+            "type" : [ "string", "null" ]
+          },
+          "localExpensesInfant" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "localGuide" : {
+            "type" : [ "string", "null" ]
+          },
+          "minDeparturePopulation" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "optionalTourIncluded" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "shoppingCount" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "singleRoomFee" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "tourLeader" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "admissionFeeIncluded", "airlineSeatClass", "cancellationPolicy", "insuranceIncluded", "localExpensesAdult", "localExpensesChild", "localExpensesCurrency", "localExpensesInfant", "localGuide", "minDeparturePopulation", "optionalTourIncluded", "shoppingCount", "singleRoomFee", "tourLeader" ],
+        "type" : "object"
+      },
+      "Contact" : {
+        "properties" : {
+          "email" : {
+            "type" : [ "string", "null" ]
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "email", "name", "phone" ],
+        "type" : "object"
+      },
+      "CostInput" : {
+        "properties" : {
+          "componentType" : {
+            "enum" : [ "FLIGHT", "HOTEL", "LAND", "TOUR", "INSURANCE", "OTHER" ],
+            "type" : "string"
+          },
+          "cost" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "note" : {
+            "type" : [ "string", "null" ]
+          },
+          "targetType" : {
+            "enum" : [ "ADULT", "NOBED_CHILD", "EXTRABED_CHILD", "INFANT" ],
+            "type" : "string"
+          }
+        },
+        "required" : [ "componentType", "cost", "note", "targetType" ],
+        "type" : "object"
+      },
+      "CostOverrideView" : {
+        "properties" : {
+          "base" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CostInput"
+            },
+            "type" : "array"
+          },
+          "departureDate" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "overrides" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CostInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "base", "departureDate", "overrides" ],
+        "type" : "object"
+      },
+      "CostRowsRequest" : {
+        "properties" : {
+          "rows" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CostInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "rows" ],
+        "type" : "object"
+      },
+      "Dashboard" : {
+        "properties" : {
+          "confirmedRevenue" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "lowSeatDepartures" : {
+            "items" : {
+              "$ref" : "#/components/schemas/LowSeatDeparture"
+            },
+            "type" : "array"
+          },
+          "pendingExpiringWithin24h" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "statusCounts" : {
+            "additionalProperties" : {
+              "format" : "int64",
+              "type" : "integer"
+            },
+            "type" : "object"
+          }
+        },
+        "required" : [ "confirmedRevenue", "lowSeatDepartures", "pendingExpiringWithin24h", "statusCounts" ],
+        "type" : "object"
+      },
+      "DepartureDateRequest" : {
+        "properties" : {
+          "date" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        },
+        "required" : [ "date" ],
+        "type" : "object"
+      },
+      "DepartureItem" : {
+        "properties" : {
+          "capacity" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "costOverrides" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "date" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "fromRule" : {
+            "type" : "boolean"
+          },
+          "pinned" : {
+            "type" : "boolean"
+          },
+          "remainingSeats" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "reservedSeats" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "status" : {
+            "enum" : [ "OPEN", "FULL", "CLOSED", "CANCELED" ],
+            "type" : "string"
+          },
+          "stored" : {
+            "type" : "boolean"
+          },
+          "weekday" : {
+            "enum" : [ "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN" ],
+            "type" : "string"
+          }
+        },
+        "required" : [ "capacity", "costOverrides", "date", "fromRule", "pinned", "remainingSeats", "reservedSeats", "status", "stored", "weekday" ],
+        "type" : "object"
+      },
+      "ErrorResponse" : {
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "error" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "code", "error" ],
+        "type" : "object"
+      },
+      "ExtrasInput" : {
+        "properties" : {
+          "condition" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/ConditionInput"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "optionalTours" : {
+            "items" : {
+              "$ref" : "#/components/schemas/OptionalTourInput"
+            },
+            "type" : "array"
+          },
+          "remark" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/RemarkInput"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "shoppings" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ShoppingInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "condition", "optionalTours", "remark", "shoppings" ],
+        "type" : "object"
+      },
+      "ItineraryInput" : {
+        "properties" : {
+          "dayNo" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "description" : {
+            "type" : [ "string", "null" ]
+          },
+          "highlight" : {
+            "type" : "boolean"
+          },
+          "perk" : {
+            "type" : "boolean"
+          },
+          "placeName" : {
+            "type" : [ "string", "null" ]
+          },
+          "serviceType" : {
+            "enum" : [ "FLIGHT", "SIGHTSEEING", "MEAL", "HOTEL", "FREE" ],
+            "type" : "string"
+          }
+        },
+        "required" : [ "dayNo", "description", "highlight", "perk", "placeName", "serviceType" ],
+        "type" : "object"
+      },
+      "ItineraryRowsRequest" : {
+        "properties" : {
+          "rows" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ItineraryInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "rows" ],
+        "type" : "object"
+      },
+      "LoginRequest" : {
+        "properties" : {
+          "password" : {
+            "type" : "string"
+          },
+          "username" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "password", "username" ],
+        "type" : "object"
+      },
+      "LoginResponse" : {
+        "properties" : {
+          "expiresAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "token" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "expiresAt", "token" ],
+        "type" : "object"
+      },
+      "LowSeatDeparture" : {
+        "properties" : {
+          "departureDate" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "productCode" : {
+            "type" : "string"
+          },
+          "remainingSeats" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "departureDate", "name", "productCode", "remainingSeats" ],
+        "type" : "object"
+      },
+      "OptionalTourInput" : {
+        "properties" : {
+          "currency" : {
+            "type" : [ "string", "null" ]
+          },
+          "details" : {
+            "type" : [ "string", "null" ]
+          },
+          "durationMinutes" : {
+            "format" : "int32",
+            "type" : [ "integer", "null" ]
+          },
+          "included" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "minParticipants" : {
+            "format" : "int32",
+            "type" : [ "integer", "null" ]
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "nameEn" : {
+            "type" : [ "string", "null" ]
+          },
+          "placeName" : {
+            "type" : [ "string", "null" ]
+          },
+          "preSale" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "priceAdult" : {
+            "format" : "double",
+            "type" : [ "number", "null" ]
+          },
+          "priceChild" : {
+            "format" : "double",
+            "type" : [ "number", "null" ]
+          },
+          "summary" : {
+            "type" : [ "string", "null" ]
+          }
+        },
+        "required" : [ "currency", "details", "durationMinutes", "included", "minParticipants", "name", "nameEn", "placeName", "preSale", "priceAdult", "priceChild", "summary" ],
+        "type" : "object"
+      },
+      "PackageBooking" : {
+        "properties" : {
+          "bookingCode" : {
+            "type" : "string"
+          },
+          "cancelReason" : {
+            "type" : [ "string", "null" ]
+          },
+          "cancelledAt" : {
+            "format" : "date-time",
+            "type" : [ "string", "null" ]
+          },
+          "channelCode" : {
+            "type" : "string"
+          },
+          "confirmedAt" : {
+            "format" : "date-time",
+            "type" : [ "string", "null" ]
+          },
+          "contact" : {
+            "$ref" : "#/components/schemas/Contact"
+          },
+          "createdAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "departureDate" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "packageName" : {
+            "type" : "string"
+          },
+          "paymentDueAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "paymentReference" : {
+            "type" : [ "string", "null" ]
+          },
+          "penaltyAmount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "productCode" : {
+            "type" : "string"
+          },
+          "refundAmount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "seatCount" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "status" : {
+            "enum" : [ "PENDING_PAYMENT", "CONFIRMED", "CANCELLED", "EXPIRED" ],
+            "type" : "string"
+          },
+          "totalAmount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "travelers" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PackageBookingTraveler"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "bookingCode", "cancelReason", "cancelledAt", "channelCode", "confirmedAt", "contact", "createdAt", "departureDate", "packageName", "paymentDueAt", "paymentReference", "penaltyAmount", "productCode", "refundAmount", "seatCount", "status", "totalAmount", "travelers" ],
+        "type" : "object"
+      },
+      "PackageBookingTraveler" : {
+        "properties" : {
+          "birthDate" : {
+            "format" : "date",
+            "type" : "string"
+          },
+          "gender" : {
+            "enum" : [ "M", "F" ],
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "seq" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "targetType" : {
+            "enum" : [ "ADULT", "NOBED_CHILD", "EXTRABED_CHILD", "INFANT" ],
+            "type" : "string"
+          },
+          "unitPrice" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "birthDate", "gender", "name", "seq", "targetType", "unitPrice" ],
+        "type" : "object"
+      },
+      "PaymentRequest" : {
+        "properties" : {
+          "paymentReference" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "PreviewRow" : {
+        "properties" : {
+          "afterDiscount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "commission" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "cost" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "costOverridden" : {
+            "type" : "boolean"
+          },
+          "discount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "margin" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "mode" : {
+            "enum" : [ "COST", "MANUAL" ],
+            "type" : "string"
+          },
+          "passThrough" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "payable" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "profit" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "salePrice" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "salesAvailable" : {
+            "type" : "boolean"
+          },
+          "targetType" : {
+            "enum" : [ "ADULT", "NOBED_CHILD", "EXTRABED_CHILD", "INFANT" ],
+            "type" : "string"
+          }
+        },
+        "required" : [ "afterDiscount", "commission", "cost", "costOverridden", "discount", "margin", "mode", "passThrough", "payable", "profit", "salePrice", "salesAvailable", "targetType" ],
+        "type" : "object"
+      },
+      "PriceInput" : {
+        "properties" : {
+          "basePrice" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "fuelSurcharge" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "salesAvailable" : {
+            "type" : "boolean"
+          },
+          "targetType" : {
+            "enum" : [ "ADULT", "NOBED_CHILD", "EXTRABED_CHILD", "INFANT" ],
+            "type" : "string"
+          },
+          "taxesAndCharges" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "basePrice", "fuelSurcharge", "salesAvailable", "targetType", "taxesAndCharges" ],
+        "type" : "object"
+      },
+      "PricingInput" : {
+        "properties" : {
+          "costs" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CostInput"
+            },
+            "type" : "array"
+          },
+          "marginBp" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "marginFixed" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "costs", "marginBp", "marginFixed" ],
+        "type" : "object"
+      },
+      "PricingPreview" : {
+        "properties" : {
+          "channelCode" : {
+            "type" : "string"
+          },
+          "commissionBp" : {
+            "format" : "int32",
+            "type" : [ "integer", "null" ]
+          },
+          "commissionFixed" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "departureDate" : {
+            "format" : "date",
+            "type" : [ "string", "null" ]
+          },
+          "rows" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PreviewRow"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "channelCode", "commissionBp", "commissionFixed", "departureDate", "rows" ],
+        "type" : "object"
+      },
+      "PricingView" : {
+        "properties" : {
+          "costs" : {
+            "items" : {
+              "$ref" : "#/components/schemas/CostInput"
+            },
+            "type" : "array"
+          },
+          "marginBp" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "marginFixed" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "costs", "marginBp", "marginFixed" ],
+        "type" : "object"
+      },
+      "ProductDetail" : {
+        "properties" : {
+          "extras" : {
+            "$ref" : "#/components/schemas/ExtrasInput"
+          },
+          "itinerary" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ItineraryInput"
+            },
+            "type" : "array"
+          },
+          "product" : {
+            "$ref" : "#/components/schemas/ProductInput"
+          },
+          "schedule" : {
+            "$ref" : "#/components/schemas/ScheduleInput"
+          }
+        },
+        "required" : [ "extras", "itinerary", "product", "schedule" ],
+        "type" : "object"
+      },
+      "ProductInput" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "days" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "defaultCapacity" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "departureRoute" : {
+            "type" : [ "string", "null" ]
+          },
+          "departureTime" : {
+            "type" : [ "string", "null" ]
+          },
+          "directFlight" : {
+            "type" : "boolean"
+          },
+          "discountAmount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "grade" : {
+            "type" : [ "string", "null" ]
+          },
+          "highlight" : {
+            "type" : [ "string", "null" ]
+          },
+          "hotelName" : {
+            "type" : [ "string", "null" ]
+          },
+          "hotelStars" : {
+            "format" : "int32",
+            "type" : [ "integer", "null" ]
+          },
+          "meetingLocation" : {
+            "type" : [ "string", "null" ]
+          },
+          "meetingTime" : {
+            "type" : [ "string", "null" ]
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "nights" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "prices" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PriceInput"
+            },
+            "type" : "array"
+          },
+          "promotionTitle" : {
+            "type" : [ "string", "null" ]
+          },
+          "returnRoute" : {
+            "type" : [ "string", "null" ]
+          },
+          "returnTime" : {
+            "type" : [ "string", "null" ]
+          },
+          "visaRequired" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "active", "code", "days", "defaultCapacity", "departureRoute", "departureTime", "directFlight", "discountAmount", "grade", "highlight", "hotelName", "hotelStars", "meetingLocation", "meetingTime", "name", "nights", "prices", "promotionTitle", "returnRoute", "returnTime", "visaRequired" ],
+        "type" : "object"
+      },
+      "ProductSummary" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "days" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "defaultCapacity" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "grade" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "nights" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "scheduleSummary" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "active", "code", "days", "defaultCapacity", "grade", "name", "nights", "scheduleSummary" ],
+        "type" : "object"
+      },
+      "RemarkInput" : {
+        "properties" : {
+          "bookingNotice" : {
+            "type" : [ "string", "null" ]
+          },
+          "exclusions" : {
+            "type" : [ "string", "null" ]
+          },
+          "faq" : {
+            "type" : [ "string", "null" ]
+          },
+          "highlights" : {
+            "type" : [ "string", "null" ]
+          },
+          "inclusions" : {
+            "type" : [ "string", "null" ]
+          },
+          "priceNote" : {
+            "type" : [ "string", "null" ]
+          },
+          "roomInfo" : {
+            "type" : [ "string", "null" ]
+          },
+          "travelNotice" : {
+            "type" : [ "string", "null" ]
+          }
+        },
+        "required" : [ "bookingNotice", "exclusions", "faq", "highlights", "inclusions", "priceNote", "roomInfo", "travelNotice" ],
+        "type" : "object"
+      },
+      "RuleInput" : {
+        "properties" : {
+          "active" : {
+            "type" : "boolean"
+          },
+          "validFrom" : {
+            "type" : "string"
+          },
+          "validTo" : {
+            "type" : "string"
+          },
+          "weekdays" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "active", "validFrom", "validTo", "weekdays" ],
+        "type" : "object"
+      },
+      "ScheduleInput" : {
+        "properties" : {
+          "exclusions" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "rules" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RuleInput"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "exclusions", "rules" ],
+        "type" : "object"
+      },
+      "ShoppingInput" : {
+        "properties" : {
+          "durationMinutes" : {
+            "format" : "int32",
+            "type" : [ "integer", "null" ]
+          },
+          "itemName" : {
+            "type" : "string"
+          },
+          "placeName" : {
+            "type" : [ "string", "null" ]
+          },
+          "refundable" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "durationMinutes", "itemName", "placeName", "refundable" ],
+        "type" : "object"
+      },
+      "TravelerFinance" : {
+        "properties" : {
+          "seq" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "unitCommission" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "unitCost" : {
+            "format" : "int64",
+            "type" : [ "integer", "null" ]
+          },
+          "unitDiscount" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "unitPassThrough" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "unitSalePrice" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "seq", "unitCommission", "unitCost", "unitDiscount", "unitPassThrough", "unitSalePrice" ],
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "scheme" : "bearer",
+        "type" : "http"
+      }
+    }
+  },
+  "info" : {
+    "description" : "Back office: products, departures, pricing, bookings.",
+    "title" : "AeroCore Admin API",
+    "version" : "1.0.0"
+  },
+  "openapi" : "3.1.0",
+  "paths" : {
+    "/api/v1/admin/bookings" : {
+      "get" : {
+        "operationId" : "listAdminBookings",
+        "parameters" : [ {
+          "description" : "PENDING_PAYMENT, CONFIRMED, CANCELLED, EXPIRED (comma separated)",
+          "in" : "query",
+          "name" : "status",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "from",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "to",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "productCode",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "departureDate",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "keyword",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "default" : 0,
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "size",
+          "required" : false,
+          "schema" : {
+            "default" : 20,
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AdminBookingPage"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Search bookings",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/bookings/{bookingCode}" : {
+      "get" : {
+        "operationId" : "getAdminBooking",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "bookingCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AdminBookingDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Booking with cost, commission and profit per traveler",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/bookings/{bookingCode}/cancel" : {
+      "post" : {
+        "operationId" : "adminCancelBooking",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "bookingCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CancelRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PackageBooking"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Cancel a booking (penalty by days before departure)",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/bookings/{bookingCode}/pay" : {
+      "post" : {
+        "operationId" : "adminConfirmPayment",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "bookingCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PaymentRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PackageBooking"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Confirm the payment of a pending booking",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/channel-commissions" : {
+      "get" : {
+        "operationId" : "listAdminChannelCommissions",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommissionInput"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Commission rules of the sales channels",
+        "tags" : [ "Admin pricing" ]
+      },
+      "put" : {
+        "operationId" : "replaceAdminChannelCommissions",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CommissionRowsRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/CommissionInput"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace the whole commission table",
+        "tags" : [ "Admin pricing" ]
+      }
+    },
+    "/api/v1/admin/dashboard" : {
+      "get" : {
+        "operationId" : "getAdminDashboard",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Dashboard"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Booking and seat summary",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/login" : {
+      "post" : {
+        "operationId" : "adminLogin",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/LoginResponse"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Sign in and get a bearer token",
+        "tags" : [ "Admin" ]
+      }
+    },
+    "/api/v1/admin/products" : {
+      "get" : {
+        "operationId" : "listAdminProducts",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProductSummary"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "All master products",
+        "tags" : [ "Admin products" ]
+      },
+      "post" : {
+        "operationId" : "createAdminProduct",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProductInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "Created"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Create a master product",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}" : {
+      "get" : {
+        "operationId" : "getAdminProduct",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Product with schedule, itinerary and extras",
+        "tags" : [ "Admin products" ]
+      },
+      "put" : {
+        "operationId" : "updateAdminProduct",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProductInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Update the basic information and prices",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/active" : {
+      "post" : {
+        "operationId" : "setAdminProductActive",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ActiveRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Enable or disable sales of a product",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures" : {
+      "get" : {
+        "operationId" : "listAdminDepartures",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "from",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "to",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/DepartureItem"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Departure dates of a range (rule dates plus stored rows)",
+        "tags" : [ "Admin products" ]
+      },
+      "post" : {
+        "operationId" : "addAdminDeparture",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DepartureDateRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartureItem"
+                }
+              }
+            },
+            "description" : "Created"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Add a single departure date outside the rules",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures/{date}/cancel" : {
+      "post" : {
+        "operationId" : "cancelAdminDeparture",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartureItem"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Cancel a departure (only without bookings)",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures/{date}/capacity" : {
+      "put" : {
+        "operationId" : "setAdminDepartureCapacity",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CapacityRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartureItem"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Change the seat capacity of a departure",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures/{date}/close" : {
+      "post" : {
+        "operationId" : "closeAdminDeparture",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartureItem"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Stop new bookings of a departure",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures/{date}/cost-overrides" : {
+      "get" : {
+        "operationId" : "getAdminCostOverrides",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CostOverrideView"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "The product's cost rows and the cost overrides of one departure date",
+        "tags" : [ "Admin pricing" ]
+      },
+      "put" : {
+        "operationId" : "saveAdminCostOverrides",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CostRowsRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/CostOverrideView"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace the cost overrides of a date; an empty list reverts the date to the product costs",
+        "tags" : [ "Admin pricing" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/departures/{date}/reopen" : {
+      "post" : {
+        "operationId" : "reopenAdminDeparture",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "date",
+          "required" : true,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DepartureItem"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Reopen a closed or canceled departure",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/extras" : {
+      "put" : {
+        "operationId" : "replaceAdminExtras",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ExtrasInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace optional tours, shopping, remarks and conditions",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/itinerary" : {
+      "put" : {
+        "operationId" : "replaceAdminItinerary",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ItineraryRowsRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace the itinerary",
+        "tags" : [ "Admin products" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/pricing" : {
+      "get" : {
+        "operationId" : "getAdminPricing",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PricingView"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Cost components and mark-up of a product",
+        "tags" : [ "Admin pricing" ]
+      },
+      "put" : {
+        "operationId" : "saveAdminPricing",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PricingInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PricingView"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace the cost components and mark-up",
+        "tags" : [ "Admin pricing" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/pricing/preview" : {
+      "get" : {
+        "operationId" : "previewAdminPricing",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Sales channel code (default DIRECT)",
+          "in" : "query",
+          "name" : "channel",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Departure date whose cost overrides are applied (default: product costs only)",
+          "in" : "query",
+          "name" : "date",
+          "required" : false,
+          "schema" : {
+            "format" : "date",
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PricingPreview"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Sale price, commission and profit per traveler type for a channel (and optionally a date)",
+        "tags" : [ "Admin pricing" ]
+      }
+    },
+    "/api/v1/admin/products/{productCode}/schedule" : {
+      "put" : {
+        "operationId" : "replaceAdminSchedule",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "productCode",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ScheduleInput"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProductDetail"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "401" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Missing, expired or invalid bearer token (code UNAUTHENTICATED)"
+          },
+          "default" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description" : "Error (see the code field)"
+          }
+        },
+        "summary" : "Replace the departure rules and excluded dates",
+        "tags" : [ "Admin products" ]
+      }
+    }
+  },
+  "security" : [ {
+    "bearerAuth" : [ ]
+  } ],
+  "servers" : [ {
+    "url" : "/"
+  } ]
+}

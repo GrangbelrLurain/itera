@@ -1,0 +1,36 @@
+{
+  "name": "@itera/domain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Presentation domain: labels, formatters, validation schemas and form mappers. No business rules (they live in the Java backend).",
+  "type": "module",
+  "exports": {
+    "./format": "./src/format/index.ts",
+    "./forms": "./src/forms/index.ts",
+    "./booking": "./src/booking/index.ts",
+    "./departure": "./src/departure/index.ts",
+    "./pricing": "./src/pricing/index.ts",
+    "./product": "./src/product/index.ts",
+    "./tone": "./src/tone.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "check": "tsc --noEmit && biome check src test"
+  },
+  "dependencies": {
+    "@itera/api-client": "workspace:*",
+    "zod": "^4.6.7"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@itera/biome": "workspace:*",
+    "@itera/tsconfig": "workspace:*",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
+  }
+}

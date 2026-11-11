@@ -1,0 +1,19 @@
+{
+  "name": "itera",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "pwsh -ExecutionPolicy Bypass -File ./check_all.ps1",
+    "test:all": "pwsh -ExecutionPolicy Bypass -File ./check_all.ps1",
+    "test:admin": "pnpm --filter @itera/admin check",
+    "test:java": "cd services/gds-adapter && java -cp bin aerocore.gds.GdsAdapterTest",
+    "dev:admin": "pnpm --filter @itera/admin dev",
+    "build:admin": "pnpm --filter @itera/admin build",
+    "check:admin": "pnpm --filter @itera/admin check",
+    "check:boundaries": "depcruise apps/admin/src packages/ui/src packages/domain/src packages/api-client/src packages/token/src --config .dependency-cruiser.cjs"
+  },
+  "packageManager": "pnpm@10.26.0",
+  "devDependencies": {
+    "dependency-cruiser": "^18.7.2"
+  }
+}

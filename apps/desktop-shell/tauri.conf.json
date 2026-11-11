@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Itera Enterprise Workstation",
+  "mainBinaryName": "itera-workstation",
+  "version": "1.0.0",
+  "identifier": "com.itera.workstation",
+  "build": {
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "ui"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "category": "Business",
+    "shortDescription": "Itera Enterprise Workstation",
+    "longDescription": "Desktop shell of the Itera administration web application.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

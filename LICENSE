@@ -1,0 +1,42 @@
+Itera (code name AeroCore) - View-Only License
+SPDX-License-Identifier: LicenseRef-View-Only
+
+Copyright (c) 2026 GrangbelrLurain. All rights reserved.
+
+This repository is published so that its source code can be read and evaluated,
+for example by people reviewing the author's work.
+
+PERMITTED
+
+  You may view and read the source code, documentation and other files in this
+  repository.
+
+NOT PERMITTED without the prior written permission of the copyright holder
+
+  - copying, reproducing or redistributing any part of this repository, in
+    source or binary form;
+  - modifying it or creating derivative works from it;
+  - using it, or any part of it, in a product, service or project, whether
+    commercial or not;
+  - using the name, icons or branding of the project to suggest endorsement.
+
+PLATFORM TERMS
+
+  The rights that the terms of the hosting platform (for example GitHub's Terms
+  of Service) give to users of that platform, such as viewing and forking the
+  repository within the platform, are not affected by this license.
+
+THIRD-PARTY COMPONENTS
+
+  The project depends on third-party packages and tools. They remain under their
+  own licenses, which this license does not change.
+
+NO WARRANTY
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.
+
+All sample data, names and text in this repository are fictional.

@@ -1,0 +1,4 @@
+{
+  "extends": "@itera/tsconfig/base.json",
+  "include": ["*.ts", "tests/**/*.ts", "support/**/*.ts"]
+}

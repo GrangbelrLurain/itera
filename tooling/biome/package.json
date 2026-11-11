@@ -1,0 +1,6 @@
+{
+  "name": "@itera/biome",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Shared Biome (lint + format) configuration."
+}

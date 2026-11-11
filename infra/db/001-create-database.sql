@@ -1,0 +1,3 @@
+IF DB_ID(N'AeroCore') IS NULL
+    CREATE DATABASE AeroCore;
+GO
