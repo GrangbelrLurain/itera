@@ -52,8 +52,11 @@ jobs:
       - name: Install the Tauri CLI
         run: cargo install tauri-cli --version 2.12.4 --locked
       - name: Build the installer
-        # No ITERA_DEFAULT_WEB_URL here: a public build must not carry a private address. The app opens
-        # http://localhost:3000 unless ITERA_WEB_URL is set.
+        # The address the installed app opens by default comes from the repository variable ITERA_DEFAULT_WEB_URL
+        # (a public demo address, never a private one). Unset: http://localhost:3000. Users can still override it
+        # with the environment variable ITERA_WEB_URL.
+        env:
+          ITERA_DEFAULT_WEB_URL: ${{ vars.ITERA_DEFAULT_WEB_URL }}
         run: |
           if [ -n "${{ matrix.target }}" ]; then
             cargo tauri build --target "${{ matrix.target }}" --bundles ${{ matrix.bundle }}

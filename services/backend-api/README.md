@@ -28,7 +28,7 @@ JDK 21 이상이 필요합니다. 빌드 도구는 저장소의 Gradle wrapper�
 ./gradlew bootRun --args='--spring.profiles.active=memory'
 ```
 
-`MemoryConfig`가 상품·출발·예약·채널 수수료를 인메모리로 조립하고 샘플 상품(`DAD501`, `TYO201`)을 시드합니다. 관리자 계정은 `application-memory.properties`의 고정값(환경 변수로 덮어쓰기 가능)이고, `POST /api/test/reset`으로 샘플 상태로 되돌립니다(이 프로필에만 존재, 계약에는 포함되지 않음). 로컬 실행과 E2E(`e2e/`)용이며 운영에는 쓰지 않습니다.
+`MemoryConfig`가 상품·출발·예약·채널 수수료를 인메모리로 조립하고 샘플 상품(`DAD501`, `TYO201`)을 시드합니다. 관리자 계정은 `application-memory.properties`의 고정값(환경 변수로 덮어쓰기 가능)이고, `POST /api/test/reset`으로 샘플 상태로 되돌립니다. 인증이 없는 엔드포인트라서 **기본은 꺼져 있고** `MEMORY_RESET_ENDPOINT=true`일 때만 생깁니다(계약에는 포함되지 않음). 공개 데모처럼 누구나 데이터를 바꿀 수 있는 곳에서는 `MEMORY_RESET_INTERVAL=PT6H`(ISO-8601)로 일정 주기마다 샘플 상태로 되돌립니다. 로컬 실행과 E2E(`e2e/`)용이며 운영에는 쓰지 않습니다.
 
 ## 구조
 

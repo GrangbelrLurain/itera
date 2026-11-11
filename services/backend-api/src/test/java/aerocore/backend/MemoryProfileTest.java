@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * The "memory" profile starts the whole API without a database: sample data is present, a booking holds seats that
  * the admin departure calendar sees, and the reset hook puts everything back.
  */
-@SpringBootTest
+@SpringBootTest(properties = "aerocore.memory.reset-endpoint=true")
 @AutoConfigureMockMvc
 @ActiveProfiles("memory")
 class MemoryProfileTest {

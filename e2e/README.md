@@ -2,8 +2,8 @@
 
 Playwright end-to-end tests of the admin web. They run against the backend's **`memory` profile**: in-memory
 repositories with sample products (`DAD501` cost-priced, `TYO201` manually priced), commissions and no bookings.
-No SQL Server is needed, and `POST /api/test/reset` (memory profile only) puts the sample data back before every
-test.
+No SQL Server is needed, and `POST /api/test/reset` (memory profile only, and only when `MEMORY_RESET_ENDPOINT=true`, which the
+Playwright config and the compose `e2e` services set) puts the sample data back before every test.
 
 ## Run
 

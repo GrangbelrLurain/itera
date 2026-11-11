@@ -68,6 +68,7 @@ services:
     build: ./services/backend-api
     environment:
       SPRING_PROFILES_ACTIVE: memory
+      MEMORY_RESET_ENDPOINT: "true"   # the e2e tests reset the data between tests
     ports:
       - "18080:8080"
 

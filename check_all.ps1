@@ -146,6 +146,9 @@ Run-Step -Name "Next.js Web Check & Build" -Language "TypeScript (Next.js)" -Act
     Set-Location (Join-Path $rootDir "apps/admin")
     pnpm check
     if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq $null) {
+        pnpm test
+    }
+    if ($LASTEXITCODE -eq 0 -or $LASTEXITCODE -eq $null) {
         pnpm build
     }
 }

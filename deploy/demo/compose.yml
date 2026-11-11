@@ -1,0 +1,49 @@
+# Public full-stack demo: the backend on in-memory sample data, the admin web, and a Cloudflare Tunnel.
+# Nothing is published on a host port: the only way in is the tunnel, which reaches the admin web by its service name.
+# See docs/deploy/demo.md.
+#
+#   cp .env.example .env     # fill in the values
+#   docker compose up -d
+name: itera-demo
+
+services:
+  backend:
+    image: ghcr.io/grangbelrlurain/itera-backend:${ITERA_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: memory
+      # anyone may change the data, so it goes back to the sample state on a schedule (ISO-8601 duration)
+      MEMORY_RESET_INTERVAL: ${MEMORY_RESET_INTERVAL:-PT6H}
+      # the reset endpoint stays off (MEMORY_RESET_ENDPOINT is not set): it has no authentication
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+      ADMIN_TOKEN_SECRET: ${ADMIN_TOKEN_SECRET:?set ADMIN_TOKEN_SECRET in .env}
+      JAVA_TOOL_OPTIONS: -Xmx300m
+    mem_limit: 512m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+
+  admin:
+    image: ghcr.io/grangbelrlurain/itera-admin:${ITERA_TAG:-latest}
+    restart: unless-stopped
+    depends_on: [backend]
+    environment:
+      API_BASE_URL: http://backend:8080
+      COOKIE_SECURE: "true"            # the site is served over https by Cloudflare
+      TRUST_PROXY_HEADERS: "true"      # take the visitor address from Cloudflare's headers (safe: only the tunnel reaches us)
+      RATE_LIMIT_READS_PER_MINUTE: ${RATE_LIMIT_READS_PER_MINUTE:-120}
+      RATE_LIMIT_WRITES_PER_MINUTE: ${RATE_LIMIT_WRITES_PER_MINUTE:-30}
+      DEMO_NOTICE: ${DEMO_NOTICE:-}
+    mem_limit: 256m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+
+  cloudflared:
+    # pin a released version in your own copy (https://github.com/cloudflare/cloudflared/releases)
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    depends_on: [admin]
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?set TUNNEL_TOKEN in .env}
+    mem_limit: 128m

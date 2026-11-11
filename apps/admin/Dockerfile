@@ -17,4 +17,6 @@ COPY --from=build /repo/apps/admin/.next/standalone ./
 COPY --from=build /repo/apps/admin/.next/static ./apps/admin/.next/static
 EXPOSE 3000
 ENV PORT=3000 HOSTNAME=0.0.0.0
+# the image of the node base runs as root by default; the app needs no privileges
+USER node
 CMD ["node", "apps/admin/server.js"]

@@ -14,6 +14,8 @@ export default async function LoginPage({
   const sp = await searchParams;
   const error = typeof sp.error === 'string' ? sp.error : null;
   const expired = sp.expired !== undefined;
+  // A public demo explains itself here (which account to use, when the data resets); unset everywhere else.
+  const demoNotice = process.env.DEMO_NOTICE?.trim() || null;
   // Already signed in (and the cookie is still there): go straight to the dashboard.
   if (!expired && !error && (await cookies()).get(ADMIN_COOKIE)) redirect('/admin');
 
@@ -22,6 +24,7 @@ export default async function LoginPage({
       <div className="w-full max-w-[380px] overflow-hidden rounded-lg border border-line bg-surface">
         <header className="bg-primary px-6 py-[18px] font-bold text-lg text-on-primary">Itera 관리자</header>
         <form action={loginAction} className="flex flex-col gap-3.5 p-6">
+          {demoNotice && <Banner kind="success">{demoNotice}</Banner>}
           {expired && <Banner kind="error">세션이 만료되었습니다. 다시 로그인하세요.</Banner>}
           {error && <Banner kind="error">{error}</Banner>}
           <Field label="아이디">

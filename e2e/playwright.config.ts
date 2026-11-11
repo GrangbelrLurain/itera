@@ -39,7 +39,8 @@ export default defineConfig({
           name: 'backend (memory profile)',
           command: 'java -Dspring.profiles.active=memory -jar services/backend-api/build/libs/backend-api-1.0.0.jar',
           cwd: root,
-          env: { PORT: '18080' },
+          // the unauthenticated reset endpoint is off by default; the tests need it
+          env: { PORT: '18080', MEMORY_RESET_ENDPOINT: 'true' },
           url: `${apiUrl}/api/v1/health`,
           reuseExistingServer: !process.env.CI,
           timeout: 60_000,

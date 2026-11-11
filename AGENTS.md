@@ -84,6 +84,7 @@ aerocore/
 ├── check_all.ps1              # 전체 검증 파이프라인 (-E2E: Playwright 포함)
 ├── e2e/                       # @itera/e2e: Playwright E2E (백엔드 memory 프로필 위에서 실행)
 ├── docker-compose.yml         # 로컬 테스트 환경 (SQL Server + backend + admin)
+├── deploy/demo/               # 공개 데모 compose (docs/deploy/demo.md)
 ├── infra/db/                  # DB 초기화 SQL (001 DB, 002 상품/출발 스키마, 003 샘플 시드, 005 예약, 006 가격, 007 날짜별 원가)
 ├── packages/                  # @itera/api-client(계약 생성 클라이언트), domain(레이블·폼 매퍼), ui(Tailwind 프리미티브), theme, token
 ├── tooling/                   # 공유 tsconfig·Biome 설정
@@ -96,5 +97,6 @@ aerocore/
 │   └── gds-adapter/           # Java GDS 어댑터 (시뮬레이션)
 └── docs/
     ├── adr/                   # Architecture Decision Records
+    ├── deploy/                # 배포 안내 (공개 데모)
     └── design/                # 설계 문서 (package-departure, package-pricing, package-booking)
 ```

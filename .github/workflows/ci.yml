@@ -37,7 +37,7 @@ jobs:
       - name: Module boundaries
         run: pnpm check:boundaries
       - name: Admin web
-        run: pnpm --filter @itera/admin check && pnpm --filter @itera/admin build
+        run: pnpm --filter @itera/admin check && pnpm --filter @itera/admin test && pnpm --filter @itera/admin build
 
   backend:
     name: Backend (Gradle)

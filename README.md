@@ -37,7 +37,8 @@ flowchart LR
 | `packages/ui`, `theme`, `token` | Tailwind 프리미티브, 테마, 디자인 토큰 |
 | `e2e/` | Playwright E2E (백엔드 `memory` 프로필 위에서 실행) |
 | `services/gds-adapter` | GDS 연동 계층의 포트-어댑터 스케치. 시뮬레이션이며 벤더 SDK는 없다. |
-| `docs/` | 설계 문서, ADR, 학습 노트 |
+| `deploy/demo` | 공개 데모용 compose (백엔드 memory 프로필 + 웹 + Cloudflare Tunnel) |
+| `docs/` | 설계 문서, ADR, 배포 안내, 학습 노트 |
 
 설계에서 지키는 규칙: 계약이 먼저(DTO를 클라이언트에서 손으로 정의하지 않음) · 비즈니스 로직은 Java에만 · 셸에는 UI를 두지 않음. 자세한 것은 [AGENTS.md](AGENTS.md), 프런트엔드 계층은 [frontend-architecture](docs/design/frontend-architecture.md)에 있습니다.
 
@@ -76,6 +77,7 @@ pwsh -ExecutionPolicy Bypass -File .\check_all.ps1 -E2E     # + Playwright E2E
 
 ## 문서
 
+- [공개 데모 배포 (Cloudflare Tunnel)](docs/deploy/demo.md)
 - [ADR-001: 아키텍처 수렴](docs/adr/ADR-001-architecture-convergence.md)
 - [프런트엔드 아키텍처](docs/design/frontend-architecture.md)
 - [패키지 출발일](docs/design/package-departure.md) · [가격](docs/design/package-pricing.md) · [예약](docs/design/package-booking.md)

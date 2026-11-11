@@ -8,7 +8,8 @@
     "start": "next start -p 3000",
     "check": "tsc --noEmit && biome check src",
     "lint": "biome check src",
-    "format": "biome check --write src"
+    "format": "biome check --write src",
+    "test": "vitest run"
   },
   "dependencies": {
     "@itera/api-client": "workspace:*",
@@ -30,6 +31,7 @@
     "@types/node": "^22.20.5",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   }
 }
