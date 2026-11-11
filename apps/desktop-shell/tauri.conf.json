@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Itera Enterprise Workstation",
   "mainBinaryName": "itera-workstation",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "identifier": "com.itera.workstation",
   "build": {
     "devUrl": "http://localhost:3000",

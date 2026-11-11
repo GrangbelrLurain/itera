@@ -1,6 +1,6 @@
 [package]
 name = "desktop-shell"
-version = "1.0.0"
+version = "0.1.0"
 edition = "2021"
 description = "Itera Enterprise Workstation: thin desktop shell (Tauri v2) around the Itera web application"
 

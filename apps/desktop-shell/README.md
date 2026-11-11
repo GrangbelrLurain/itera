@@ -78,7 +78,7 @@ cargo install tauri-cli --locked          # once
 ITERA_DEFAULT_WEB_URL=https://admin.example.com cargo tauri build
 ```
 
-Result on Windows: `target/release/bundle/nsis/Itera Enterprise Workstation_1.0.0_x64-setup.exe` (about 2.5 MB; the app
+Result on Windows: `target/release/bundle/nsis/Itera Enterprise Workstation_0.1.0_x64-setup.exe` (about 2.5 MB; the app
 itself is `itera-workstation.exe`, about 11 MB). The first build downloads NSIS and its Tauri helper DLL (hash
 verified). A running copy of the shell locks `target/release/desktop-shell.exe`; set `CARGO_TARGET_DIR=target-dist` to
 build next to it (a full rebuild, about 5 minutes).
