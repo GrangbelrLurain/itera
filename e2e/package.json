@@ -12,7 +12,7 @@
     "prepare:stack": "pnpm --filter @itera/admin build && cd ../services/backend-api && ./gradlew bootJar -q"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.6",
+    "@biomejs/biome": "^2.6.7",
     "@itera/biome": "workspace:*",
     "@itera/tsconfig": "workspace:*",
     "@playwright/test": "^1.65.0",

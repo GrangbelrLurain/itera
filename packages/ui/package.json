@@ -13,7 +13,7 @@
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.6.6",
+    "@biomejs/biome": "^2.6.7",
     "@itera/biome": "workspace:*",
     "@itera/tsconfig": "workspace:*",
     "@types/react": "^19.3.0",
