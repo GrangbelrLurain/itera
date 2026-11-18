@@ -15,7 +15,7 @@
     "@itera/biome": "workspace:*",
     "@itera/tsconfig": "workspace:*",
     "openapi-typescript": "^7.13.0",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "gen": "node scripts/generate.mjs",
